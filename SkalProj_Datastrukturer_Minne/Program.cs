@@ -299,6 +299,7 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
             // Receive input from user
+            Console.Write("Input: ");
             var input = Console.ReadLine()!;
 
             // We make a two-dimensional array with the characters we want to balance.
