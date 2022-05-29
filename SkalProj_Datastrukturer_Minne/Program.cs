@@ -319,7 +319,7 @@ namespace SkalProj_Datastrukturer_Minne
             var inputMatchFirstColumn = new Stack<char>();
 
             // Flag if we get a mismatch.
-            bool failure = false;
+            var failure = false;
 
             // For every character in our input string...
             foreach (char c in input)
@@ -333,12 +333,13 @@ namespace SkalProj_Datastrukturer_Minne
                     else if (c == balancedPairs[i, 1])
                     {
                         // First check if the stack is empty because we can't pop it otherwise. Flag failure if empty.
-                        if (inputMatchFirstColumn.Count == 0) failure = true;
                         // Pop the stack and compare it to the first column character of the same row. Flag failure if they don't match.
-                        else if (inputMatchFirstColumn.Pop() != balancedPairs[i, 0]) failure = true;
+                        if (inputMatchFirstColumn.Count == 0 || inputMatchFirstColumn.Pop() != balancedPairs[i, 0]) { failure = true; break; }
                     }
                 }
-                // No need to keep looping if we have flagged for failure.
+                // All these breaks and failure flags makes me want the method to return a boolean instead of void.
+                // Then we could just return the false immediately and handle it elsewhere.
+                // But we'll stick to the exercise spec.
                 if (failure) break;
             }
 
@@ -346,9 +347,8 @@ namespace SkalProj_Datastrukturer_Minne
             // Therefore we flag for failure if the stack isn't empty.
             if (inputMatchFirstColumn.Count != 0) failure = true;
 
-            // Conditional variable, indicating to the user if there was a failure flag.
-            var interjection = failure ? "NOT " : "";
-            Console.WriteLine($"\" {input} \" is {interjection}formatted correctly.");
+            // Conditionally indicates to the user if there was a failure flag.
+            Console.WriteLine($"\" {input} \" is{(failure ? " NOT " : " ")}formatted correctly.");
 
         }
 
