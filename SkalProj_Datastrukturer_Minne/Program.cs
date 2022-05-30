@@ -336,19 +336,19 @@ namespace SkalProj_Datastrukturer_Minne
                     if (c == balancedPairs[i, 1])
                     {
                         // First check if the stack is empty because we can't pop it otherwise. Flag failure if empty.
-                        // Pop the stack and compare it to the first column character of the same row. Flag failure if they don't match.
-                        if (inputMatchFirstColumn.Count == 0 || inputMatchFirstColumn.Pop() != balancedPairs[i, 0]) { failure = true; break; }
+                        // Pop the stack and compare it to the first column character of the same row. Flag failure if they don't match..
+                        if (inputMatchFirstColumn.Count == 0 || inputMatchFirstColumn.Pop() != balancedPairs[i, 0]) { failure = true; goto end; }
                     }
                 }
-                // All these breaks and failure flags makes me want the method to return a boolean instead of void.
-                // Then we could just return the false immediately and handle it elsewhere.
-                // But we'll stick to the exercise spec.
-                if (failure) break;
             }
-
             // We might end up with a stack full of first column characters that never gets popped
             // Therefore we flag for failure if the stack isn't empty.
             if (inputMatchFirstColumn.Count != 0) failure = true;
+
+            // "Go To Statement Considered Harmful"
+            // In this case it seems cleaner than having nested if-checks to break the for-loops
+            // Even more preferable would be for the method to return a bool and handle false returns immediately. As mentioned above.
+            end:
 
             // Conditionally indicates to the user if there was a failure flag.
             Console.WriteLine($"\" {input} \" is{(failure ? " NOT " : " ")}formatted correctly.");
