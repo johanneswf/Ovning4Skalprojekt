@@ -328,7 +328,7 @@ namespace SkalProj_Datastrukturer_Minne
             foreach (char c in input)
             {
                 // For every row in balancedPairs...
-                for (int i = 0; i < balancedPairsRows - 1; i++)
+                for (int i = 0; i < balancedPairsRows; i++)
                 {
                     // If the input character matches the first column character, push it to the stack
                     if (c == balancedPairs[i, 0]) { inputMatchFirstColumn.Push(c); break; }
