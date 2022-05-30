@@ -110,7 +110,7 @@ namespace SkalProj_Datastrukturer_Minne
             Console.Write("Add(+)/Remove(-) string: ");
             var input = Console.ReadLine()!;
             var nav = input[0];
-            var value = input.Substring(1);
+            var value = input[1..];
 
             switch (nav)
             {
@@ -221,7 +221,7 @@ namespace SkalProj_Datastrukturer_Minne
             */
 
 
-            Stack<string> theStack = new Stack<string>();
+            var theStack = new Stack<string>();
 
             bool run = true;
             do
@@ -280,7 +280,7 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 var input = Console.ReadLine()!;
 
-                Stack<char> text = new Stack<char>(); // Create stack to store our characters
+                var text = new Stack<char>(); // Create stack to store our characters
 
                 foreach (var c in input) text.Push(c); // Push characters from string to stack
 
@@ -320,6 +320,8 @@ namespace SkalProj_Datastrukturer_Minne
             var inputMatchFirstColumn = new Stack<char>();
 
             // Flag if we get a mismatch.
+            // Having the method return a bool instead of void would make this process easier.
+            // Letting us exit the method/return false immediately upon mismatch.
             var failure = false;
 
             // For every character in our input string...
@@ -329,9 +331,9 @@ namespace SkalProj_Datastrukturer_Minne
                 for (int i = 0; i < balancedPairsRows - 1; i++)
                 {
                     // If the input character matches the first column character, push it to the stack
-                    if (c == balancedPairs[i, 0]) inputMatchFirstColumn.Push(c);
+                    if (c == balancedPairs[i, 0]) { inputMatchFirstColumn.Push(c); break; }
                     // Else if the input character matches the second column character
-                    else if (c == balancedPairs[i, 1])
+                    if (c == balancedPairs[i, 1])
                     {
                         // First check if the stack is empty because we can't pop it otherwise. Flag failure if empty.
                         // Pop the stack and compare it to the first column character of the same row. Flag failure if they don't match.
